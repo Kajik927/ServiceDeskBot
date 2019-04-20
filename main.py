@@ -57,23 +57,15 @@ def first(update,context):
     context.bot.send_message(chat_id=chat_id,text='''Проектор обиделся на вас и на вашу тупость, вы жалкое существо которое даже не может включить обычный убоги проектор 
     ''')
  
-  
+  buttons=[['Да'],['Нет']] 
+  m = ReplyKeyboardMarkup(buttons, one_time_keyboard=True)
+
+  context.bot.send_message(chat_id=chat_id,text='Помогло ли вам решение',reply_markup=m)
   return 2
 
   
 
 def second (update,context):
-  chat_id=update.message.chat_id
-  text=update.message.text
-  
-  buttons=[['Да'],['Нет']] 
-
-  context.bot.send_message(chat_id=chat_id,text='Помогло ли вам решение ')
-  
-  return 3
-
-def third (update,context):
-
   chat_id=update.message.chat_id
   text=update.message.text
 
@@ -102,8 +94,7 @@ dialog =ConversationHandler(
   
   states={
     1:[MessageHandler(Filters.text,first,pass_user_data=True)],
-    2:[MessageHandler(Filters.text,second,pass_user_data=True)],
-    3:[MessageHandler(Filters.text,third,pass_user_data=True)]
+    2:[MessageHandler(Filters.text,second,pass_user_data=True)]
   },
   
   fallbacks=[CommandHandler('cancel',cancel,pass_user_data=True)]    
