@@ -1,10 +1,20 @@
 import telegram
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 from telegram import Bot
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, ConversationHandler, Filters
 
 TOKEN='800916309:AAEd5dc4vXBz1fXeksPW-GTr5vC5j4AWvok'
+scope = ['https://spreadsheets.google.com/feeds']
+creds = ServiceAccountCredentials.from_json_keyfile_name('PythonProject-9d39146577e3.json',scope)
+client = gspread.authorize(creds)
+
+url='https://docs.google.com/spreadsheets/d/1AzFZA6BQW4xgDI4dubQgH6uCm3vb29gB9X0ZEKw9RU4/edit?usp=sharing'
+
+sheet = client.open_by_url(url).sheet1
+
 
 def start(update, context):
   chat_id = update.message.chat_id
@@ -72,8 +82,9 @@ def second (update,context):
   if text=='Да':
     context.bot.send_message(chat_id=chat_id,text='Спасибо мы были рады вам помочь до скорых встреч')
   else:
-    context.bot.send_message(chat_id=chat_id,text='Ваша заявка принято и отправлено админситратору ')
-  
+    context.bot.send_message(chat_id=chat_id,text='Пожлуйста опишите вашу проблему')
+  to_add=[chat_id,text]
+  sheet.insert_row(to_add)  
   return ConversationHandler.END
 
 
