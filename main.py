@@ -20,8 +20,12 @@ def start(update, context):
   chat_id = update.message.chat_id
   text = update.message.text
   print(chat_id)
-
-  context.bot.send_message(chat_id=chat_id, text='Привет!\nЯ Service desk Bot и я помогаю тебе решить проблему с It service.\nУ меня есть такие команды: /problem - в этой команде есть список проблем с консультациями\n/cancel - отменяет заявку  ')
+  print(update)
+  first = update.message.chat['first_name']
+  last = update.message.chat['last_name']
+  print(first, last)
+  
+  context.bot.send_message(chat_id=chat_id, text=f'Привет, {first}\nЯ Service desk Bot и я помогаю тебе решить проблему с It service.\nУ меня есть такие команды: /problem - в этой команде есть список проблем с консультациями\n/cancel - отменяет заявку  ')
 
 def problem(update, context):
   chat_id = update.message.chat_id
@@ -64,13 +68,13 @@ def first(update,context):
 Для начала проверьте контакт кабеля в принтере и в системном блоке. Теперь пронаблюдайте за экраном монитора, когда отсылаете документы на печать. Если ничего не происходит, проверьте, не стоит ли «птичка» в диспетчере, возле пункта «Приостановить печать»?
     ''')
   elif text=='Не включается проектор':
-    context.bot.send_message(chat_id=chat_id,text='''Проектор обиделся на вас и на вашу тупость, вы жалкое существо которое даже не может включить обычный убоги проектор 
+    context.bot.send_message(chat_id=chat_id,text='''Проверьте кабель питания и если все подключено нажмите на проекторе либо на пулте от проектора "Power"  
     ''')
  
   buttons=[['Да'],['Нет']] 
   m = ReplyKeyboardMarkup(buttons, one_time_keyboard=True)
 
-  context.bot.send_message(chat_id=chat_id,text='Помогло ли вам решение',reply_markup=m)
+  context.bot.send_message(chat_id=chat_id,text='Помогло ли вам решение ?',reply_markup=m)
   return 2
 
   
@@ -80,7 +84,7 @@ def second (update,context):
   text=update.message.text
 
   if text=='Да':
-    context.bot.send_message(chat_id=chat_id,text='Спасибо мы были рады вам помочь до скорых встреч')
+    context.bot.send_message(chat_id=chat_id,text='Спасибо мы были рады вам помочь до скорых встреч))')
   else:
     context.bot.send_message(chat_id=chat_id,text='Пожлуйста опишите вашу проблему')
   to_add=[chat_id,text]
