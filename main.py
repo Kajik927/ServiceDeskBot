@@ -87,8 +87,9 @@ def second (update,context):
     context.bot.send_message(chat_id=chat_id,text='Спасибо мы были рады вам помочь до скорых встреч))')
   else:
     context.bot.send_message(chat_id=chat_id,text='Пожлуйста опишите вашу проблему')
-  	to_add=[chat_id,text]
-  	sheet.insert_row(to_add)  
+    first = update.message.chat['first_name']
+    to_add=[first,text]
+    sheet.insert_row(to_add)  
   return ConversationHandler.END
 
 
